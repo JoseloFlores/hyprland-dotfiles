@@ -30,7 +30,7 @@ fi
 
 # --- 2. Instalación de Dependencias ---
 echo -e "${GREEN}Instalando paquetes y dependencias...${NC}"
-PACKAGES="hyprland waybar swaybg wofi foot nautilus playerctl wireplumber brightnessctl grim slurp swappy jq fonts-font-awesome pavucontrol blueman hyprlock hypridle libayatana-appindicator3-1 zenity nwg-look"
+PACKAGES="hyprland waybar swaybg wofi foot nautilus playerctl wireplumber brightnessctl grim slurp swappy jq fonts-font-awesome pavucontrol blueman hyprlock hypridle libayatana-appindicator3-1 zenity nwg-look hyprpolkitagent"
 
 # Intentar instalar desde backports primero, si falla, intentar normal
 sudo apt install -y -t trixie-backports $PACKAGES || sudo apt install -y $PACKAGES
