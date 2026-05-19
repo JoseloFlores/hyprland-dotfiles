@@ -1,0 +1,198 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 25,
+    "spacing": 0,
+    "output": "eDP-1",
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["group/quicksettings", "custom/updates", "backlight", "tray", "group/power"],
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "min-length": 6
+    },
+
+    "group/quicksettings": {
+        "orientation": "inherit",
+        "modules": [
+            "pulseaudio",
+            "network",
+            "bluetooth",
+            "battery"
+        ]
+    },
+
+    "mpris": {
+        "format": "{player_icon} {title} - {artist} [{position}/{length}]",
+        "format-paused": "{status_icon} <i>{title} - {artist}</i>",
+        "player-icons": {
+            "default": "▶",
+            "spotify": "",
+            "firefox": "" 
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "max-length": 40,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl previous",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
+    },
+
+    "group/power": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "not-power",
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "custom/power", 
+            "custom/lock",
+            "custom/suspend",
+            "custom/reboot",
+            "custom/quit"
+        ]
+    },
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "~/.config/hypr/confirm_power.sh \"¿Apagar el sistema?\" \"shutdown now\""
+    },
+    "custom/suspend": {
+        "format": "󰤄",
+        "tooltip": false,
+        "on-click": "~/.config/hypr/confirm_power.sh \"¿Suspender el sistema?\" \"systemctl suspend\""
+    },
+    "custom/quit": {
+        "format": "󰗼",
+        "tooltip": false,
+        "on-click": "~/.config/hypr/confirm_power.sh \"¿Cerrar sesión?\" \"hyprctl dispatch exit\""
+    },
+    "custom/lock": {
+        "format": "󰌾",
+        "tooltip": false,
+        "on-click": "hyprlock"
+    },
+    "custom/reboot": {
+        "format": "󰜉",
+        "tooltip": false,
+        "on-click": "~/.config/hypr/confirm_power.sh \"¿Reiniciar el sistema?\" \"reboot\""
+    },
+
+    "custom/updates": {
+        "format": "{text}",
+        "interval": 3600,
+        "return-type": "json",
+        "exec": "~/.config/hypr/check_updates.sh",
+        "on-click": "foot sh -c 'sudo apt update && sudo apt upgrade -y; pkill -SIGRTMIN+8 waybar; echo \"Sistema actualizado. Presiona cualquier tecla para cerrar...\"; read -n 1'",
+        "signal": 8,
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate",
+        "all-outputs": true,
+        "sort-by-number": true
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 40,
+        "separate-outputs": true
+    },
+
+    "tray": {
+        "spacing": 10
+    },
+
+    "clock": {
+        "timezone": "America/Argentina/Buenos_Aires",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+        "format": " {:%H:%M   %d/%m}",
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            // "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "format": {
+                "months":     "<span color='#bb9af7'><b>{}</b></span>",
+                "days":       "<span color='#c0caf5'><b>{}</b></span>",
+                "weekdays":   "<span color='#e0af68'><b>{}</b></span>",
+                "today":      "<span color='#f7768e'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions":  {
+            "on-click": "shift_down",
+            "on-click-middle": "shift_up",
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": false
+    },
+
+    "memory": {
+        "format": " {}%"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "network": {
+        "format-wifi": "",
+        "format-ethernet": "",
+        "tooltip-format": " {ifname} via {gwaddr}",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%)",
+        "format-linked": "",
+        "format-disconnected": "󰤮",
+        "format-disabled": "󰤮",
+        "on-click": "foot nmtui"
+    },
+
+    "bluetooth": {
+        "format": " {status}",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        "on-click": "blueman-manager"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "XDG_CURRENT_DESKTOP=GNOME gnome-control-center sound"
+    }
+}

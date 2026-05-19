@@ -1,0 +1,52 @@
+@import "/home/jose/.config/wofi/theme.css";
+
+/* Wofi Style */
+window {
+    margin: 0px;
+    border: 1px solid @accent4;
+    background-color: alpha(@base00, 0.7);
+    border-radius: 12px;
+    font-family: "MesloLGM Nerd Font Mono", "Helvetica", "Arial", sans-serif;
+    font-size: 14px;
+}
+
+#outer-box {
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+#input {
+    margin: 5px;
+    border: 1px solid @accent4;
+    border-radius: 8px;
+    color: @base05;
+    background-color: alpha(@base01, 0.5);
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 5px;
+    border: none;
+    color: @base05;
+}
+
+#entry:selected {
+    background-color: alpha(@accent4, 0.3);
+    border-radius: 8px;
+    outline: none;
+}
+
+#text:selected {
+    color: @accent6;
+}
